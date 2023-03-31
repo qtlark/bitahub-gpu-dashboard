@@ -1,3 +1,3 @@
 # bitahub-gpu-dashboard
 
-![](./pic.jpg)
+![](https://github.com/liaoyinuo/bitahub-gpu-dashboard/raw/main/pic.jpg)
