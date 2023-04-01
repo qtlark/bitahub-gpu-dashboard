@@ -21,8 +21,27 @@
 
     // 加载后执行主函数
     window.onload = function () {
-        get_gpu();
+        add_lis();
+        preload();
     };
+
+    // 增加监听事件，当移到图标上才会请求显卡资源
+    function add_lis() {
+        var ba = document.querySelector(".flag-right");
+        ba.onmouseenter = function () {
+            get_gpu();
+            console.log('获取好了一次显卡资源信息喵\(=^-ω-^=\)');
+        };
+    }
+
+    // 调整样式，给一个假表格防止错位
+    function preload() {
+        var dc = document.querySelector(".consulting-con");
+        dc.parentNode.style.width = '270px';
+        dc.parentNode.style.padding = '12px 12px 3px 12px';
+        dc.innerHTML = '<table border="1" class="dataframe"><thead><tr style="text-align: right;"><th><button>Refresh</button></th><th>GPU_Left</th><th>GPU_Total</th></tr></thead><tbody><tr class="oddrowcolor"><td>debug</td><td>0</td><td>0</td></tr><tr class="evenrowcolor"><td>rtx3090</td><td>0</td><td>0</td></tr><tr class="oddrowcolor"><td>rtx3090_L</td><td>0</td><td>0</td></tr><tr class="evenrowcolor"><td>gtx1080ti</td><td>0</td><td>0</td></tr><tr class="oddrowcolor"><td>gtx1080ti_L</td><td>0</td><td>0</td></tr><tr class="evenrowcolor"><td>teslaa40_L</td><td>0</td><td>0</td></tr><tr class="oddrowcolor"><td>teslav100</td><td>0</td><td>0</td></tr><tr class="evenrowcolor"><td>titanxp</td><td>0</td><td>0</td></tr></tbody></table><div>信息最后更新于： 1919/8/10 11:45:14</div>';
+    }
+
 
     // 主函数，获取显卡资源信息并渲染
     function get_gpu() {
@@ -34,11 +53,8 @@
         req.onload = function () {
             if (req.readyState === req.DONE) {
                 if (req.status === 200) {
-                    var dc = document.querySelector(".consulting-con");
                     var tb = req.responseXML.querySelector("table");
-
-                    dc.parentNode.style.width = '270px';
-                    dc.parentNode.style.padding = '12px 12px 3px 12px';
+                    var dc = document.querySelector(".consulting-con");
                     dc.innerHTML = '';
                     dc.appendChild(altRows(proc(tb)));
                     dc.appendChild(get_time());
@@ -50,7 +66,7 @@
     // 获取当前时间，返回div
     function get_time() {
         var timediv = document.createElement("div");
-        timediv.innerHTML = '信息最后更新于： ' + new Date().toLocaleString('chinese', { hour12: false });
+        timediv.innerHTML = '信息最后获取于： ' + new Date().toLocaleString('chinese', { hour12: false });
         return timediv
     }
 
