@@ -5,7 +5,7 @@
 // @description  本脚本提供了bitahub的显卡仪表盘，方便大家训练时查看可用显卡，以更充分地利用算力资源。
 // @author       yunqiao
 // @homepageURL  https://github.com/liaoyinuo/bitahub-gpu-dashboard
-// @match        *://*.bitahub.com/*
+// @match        *://bitahub.ustc.edu.cn/*
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAHpUExURQAAACKX8yGW8yKW8yKW8yKV8yKX8yGW8yGW8yKV8yGW8yGW8yKW8yKW8yKV8ySY9SGW8yKW9CaZ9iGU8iWY9SGW8yOX9COW9CKW8yCV8iGU8iWY9Suc+h+V8imb+R+V8CWY9ima+CKX8yGW8yKW8yub+ieX9iKW8yKX9CKV8yKX8yKW8yCV8iKW8yKX8yWW9CCW8iGV8yWY9iKV8ySW9SGW8iia+SOX8yKX8yGW8yKW8yCV8iOW8ySW9SOX8yKY8yGW8yKX8yGW8yGW8yOX9CGW8ySY9SGW8iGW8yKW8yGW8yGW8x+V8SKW8yGW8yGW8yKV8yKW9CKW8yGW8yGW8yGW8yGW8yKW8yCW8yKX8yGX8yKW8yKX8iGX8yOY8yyd/CWX9R+V8SGW8yma+Sma+Cqa+SGV8yKV8yCV8iyd+ySY9SKW8yKX8yGW8y+f/SKY8iGW8yWX9SSY8yKW8yOY9SOX9CCW8yOW9CKW8yGV8yKV8yKW8yWY9SKW8yOZ8yKV8iOX9SKW8yWX9iGW9CKW8yGW8iKV8yKX8yWZ9C6e/SeY9SGW8yWY9iKV8yaX9SKX8yGW8yeb9yeY9SGW8yGW8yeY9iKV8ySX9SKV8yCV8iGW8yCW8yCV8iCW8iCV8yGW9CGW8h+V8h+V8UvtKqAAAACadFJOUwBe9cLJoaDyNl/8+si0mnLH5gFkU+Sjltn3qpIe7FrNaDR27wpAF9PXZZklFNFbBfZesFxAkkY7YN/d9gkBCC1loc89PX6LkTfBueXsxvNkoIm/4uHqbdzmhvnQTuQROj16sRdOF41j/jnHrayACb95eQLMa7P+r76b8M151AFa0KBIZsOTXl0fCA7XSFoLXJtGAzS1A5bClfiPXmiJAAABzklEQVRIx7WWVW/DMBSFvXZb1466tR0zMzMzMzMzMzMzY+KOfunSLEkb1clqTTsvkW/Op8TnXksGAEMe3p5eOH7gThKuWIAbQVhjAU8EIQMgIr/EyjTdP+iApAoCRzJQTmACClygSuANSQoAMvppa1djwdPq+AgUAaoRGY5KSEGgHZm6ExQEInEBIgfh7xb5JWrTYZZ83Uy8iW0aP9ZfBUkcoKywqSjEdKAlgQ6h98sQSJWa83Wwyfol4UxsG1APJGYZx7rPAH5cZeeTBZqRjeuj/YogrmCvZQEbJOBMA42ZXOGWZAFFIMI/6EAn6R/NVQYgtwfX2pQoM0MdX09qmAb4csDQhz4lRFuZkjaO9Z+tmdYHaP/j35p+M7FxMDcbgICOPF6nhX+JVnBdPX/42lpj4+WGOrqc0YhMq3UBItZ+B+EDVIlunDCQhgQWRc50cYaRfW5B9MQ1lNrwx1t6Dv92RP8ASHCBJVxgWYsJXB3OGxbWV2LQThep1IUGKO1yLSXtAOh5R03s2B0Aj8/wB9jTAxfUMh0BaGd1xhfmC6dKhiCVU9TSBwF0nuiMFgwAHNUq3Uyr1I70MjlUztfwdhfgAf92daAuJ68A9/rzDc7YKBwNxyFJAAAAAElFTkSuQmCC
 // @grant        unsafeWindow
 // @grant        GM_addStyle
@@ -38,16 +38,16 @@
     // 调整样式，给一个假表格防止错位
     function preload() {
         var dc = document.querySelector(".consulting-con");
-        dc.parentNode.style.width = '270px';
+        dc.parentNode.style.width = '282px';
+        dc.parentNode.style.height = '445px';
         dc.parentNode.style.padding = '12px 12px 3px 12px';
-        dc.innerHTML = '<table border="1" class="dataframe"><thead><tr style="text-align: right;"><th><button>Refresh</button></th><th>GPU_Left</th><th>GPU_Total</th></tr></thead><tbody><tr class="oddrowcolor"><td>debug</td><td>0</td><td>0</td></tr><tr class="evenrowcolor"><td>rtx3090</td><td>0</td><td>0</td></tr><tr class="oddrowcolor"><td>rtx3090_L</td><td>0</td><td>0</td></tr><tr class="evenrowcolor"><td>gtx1080ti</td><td>0</td><td>0</td></tr><tr class="oddrowcolor"><td>gtx1080ti_L</td><td>0</td><td>0</td></tr><tr class="evenrowcolor"><td>teslaa40_L</td><td>0</td><td>0</td></tr><tr class="oddrowcolor"><td>teslav100</td><td>0</td><td>0</td></tr><tr class="evenrowcolor"><td>titanxp</td><td>0</td><td>0</td></tr></tbody></table><div>信息最后更新于： 1919/8/10 11:45:14</div>';
     }
 
 
     // 主函数，获取显卡资源信息并渲染
     function get_gpu() {
         var req = new XMLHttpRequest();
-        req.open("GET", 'https://www.bitahub.com/resources/all', true);
+        req.open("GET", 'https://bitahub.ustc.edu.cn/resources/all', true);
         req.responseType = 'document';
         req.send();
 
@@ -68,6 +68,8 @@
     function get_time() {
         var timediv = document.createElement("div");
         timediv.innerHTML = '信息最后获取于： ' + new Date().toLocaleString('chinese', { hour12: false });
+        timediv.style.textAlign = 'center';
+        timediv.style.marginTop = '3px';
         return timediv
     }
 
@@ -83,20 +85,31 @@
 
     // 精简信息、重排信息，表格左上角转为按钮
     function proc(tb) {
-        var row = tb.rows;
-        for (var i = 0; i < row.length; i++) {
+        var rowlen = tb.rows.length;
+        for (let i = 0; i < rowlen; i++) {
             for (var j = 0; j < 4; j++) {
                 tb.rows[i].deleteCell(-1);
             }
+            if (tb.rows[i].cells[0].innerHTML[0] === 'c') {
+                tb.deleteRow(i);
+                i -= 1;
+                rowlen -= 1;
+            }
+            if (tb.rows[i].cells[0].innerText[0] === 'd') {
+                var dbgxh = i;
+                console.log(dbgxh);
+            }
         }
+
         tb.rows[0].cells[0].innerHTML = '';
         tb.rows[0].cells[0].appendChild(AddButton())
 
-        tb = swap(tb, 1, 8);
-        tb = swap(tb, 6, 8);
-        tb = swap(tb, 5, 6);
-        tb.deleteRow(2);
-        tb.deleteRow(6);
+
+        tb = swap(tb, 1, dbgxh);
+        //tb = swap(tb, 6, 8);
+        //tb = swap(tb, 5, 6);
+        //tb.deleteRow(2);
+        //tb.deleteRow(6);
         return tb
     }
 
